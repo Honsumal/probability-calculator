@@ -7,10 +7,8 @@ import {
 
 export default function Calculator() {
     const [probPerc, setProbPerc] = useState("");
-    const [probDec, setProbDec] = useState("");
     const [rolls, setRolls] = useState("");
     const [percConf, setPercConf] = useState("");
-    let calcList = []
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -18,29 +16,21 @@ export default function Calculator() {
         if (isNaN(parseFloat(probPerc)) && isNaN(parseFloat(probDec))) {
             alert("Please enter a valid probability")
             return
-        } else if (!(Number.isInteger(parseInt(rolls)) || rolls === '') && ((percConf > 0 && percConf < 100) || (percConf === ''))) {
+        } else if (!(Number.isInteger(parseInt(rolls)) || rolls === '')) {
             alert("Please enter either a desired confidence or number of rolls")
             return
         } 
-
-        const prob = probPerc / 100 || probDec
 
         if (Number.isInteger(parseInt(rolls)) && !(rolls === "")) {
             let conf = ((1 - (1 - prob) ** rolls) * 100).toFixed(2)
             console.log(conf)
             setPercConf(conf)       
 
-        } else if ((percConf > 0 && percConf < 100) && !(percConf === "")) {
-            let dConf = percConf / 100
-            let reqRolls = Math.ceil(Math.log(1 - dConf) / Math.log(1 - prob))
-            console.log(reqRolls)
-            setRolls(reqRolls)
-
         } else {
             alert('Please input a valid number of rolls or percentage confidence')
         }
 
-        let newCalc = {probPerc, probDec, rolls, percConf}
+        let newCalc = {probPerc, rolls, percConf}
 
         calcList.push(newCalc)
 
@@ -50,10 +40,6 @@ export default function Calculator() {
 
     const handleProbPerc = (e) => {
         setProbPerc(e.target.value)
-    }
-
-    const handleProbDec = (e) => {
-        setProbDec(e.target.value)
     }
 
     const handleRolls = (e) => {
@@ -80,13 +66,7 @@ export default function Calculator() {
                         label = "Probability as Percentage"
                         onChange = {handleProbPerc}
                         value = {probPerc}
-                        />
-                    <TextField
-                        // id="disabled"
-                        label = "Probability as Decimal"
-                        onChange = {handleProbDec}
-                        value = {probDec}
-                        />
+                        />                        
                     <TextField
                         // id="disabled"
                         label = "Rolls Required"
@@ -101,17 +81,11 @@ export default function Calculator() {
                         />
                     <br></br>
                     <br></br>
-                    <Button variant="contained" onClick={handleSubmit}>Submit Calculation</Button>
+                    <Button variant="contained" onClick={handleSubmit}>Additional Calculation</Button>
                     <br></br>
                     <br></br>
                 </div>
             </Box>
-            <br></br>
-            <div className='container2'>
-                <Box>
-                    Previous Calculations:
-                </Box>                
-            </div>
             <br></br>
         </div>
     )
