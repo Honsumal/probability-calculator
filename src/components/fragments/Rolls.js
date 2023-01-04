@@ -9,6 +9,7 @@ export default function Calculator() {
     const [probPerc, setProbPerc] = useState("");
     const [rolls, setRolls] = useState("");
     const [percConf, setPercConf] = useState("");
+    let calcList = []
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -16,27 +17,28 @@ export default function Calculator() {
         if (isNaN(parseFloat(probPerc))) {
             alert("Please enter a valid probability")
             return
-        } else if (!(Number.isInteger(parseInt(rolls)) || rolls === '')) {
-            alert("Please enter a desired number of rolls to perform")
+        } else if (((percConf > 0 && percConf < 100) || (percConf === ''))) {
+            alert("Please enter desired confidence percentage")
             return
         } 
 
         const prob = probPerc / 100
 
-        if (Number.isInteger(parseInt(rolls)) && !(rolls === "")) {
-            let conf = ((1 - (1 - prob) ** rolls) * 100).toFixed(2)
-            console.log(conf)
-            setPercConf(conf)       
+        if ((percConf > 0 && percConf < 100) && !(percConf === "")) {
+            let dConf = percConf / 100
+            let reqRolls = Math.ceil(Math.log(1 - dConf) / Math.log(1 - prob))
+            console.log(reqRolls)
+            setRolls(reqRolls)
 
         } else {
-            alert('Please input a valid number of rolls to perform')
+            alert('Please input a valid percentage confidence')
         }
 
-        // let newCalc = {probPerc, rolls, percConf}
+        let newCalc = {probPerc, rolls, percConf}
 
-        // calcList.push(newCalc)
+        calcList.push(newCalc)
 
-        // localStorage.setItem("calculations", JSON.stringify(calcList));
+        localStorage.setItem("calculations", JSON.stringify(calcList));
 
     }
 
@@ -68,7 +70,7 @@ export default function Calculator() {
                         label = "Probability as Percentage"
                         onChange = {handleProbPerc}
                         value = {probPerc}
-                        />                        
+                        />
                     <TextField
                         // id="disabled"
                         label = "Rolls Required"
@@ -81,14 +83,8 @@ export default function Calculator() {
                         onChange = {handlePercConf}
                         value = {percConf}
                         />
-                    <br></br>
-                    <br></br>
-                    <Button variant="contained" onClick={handleSubmit}>Additional Calculation</Button>
-                    <br></br>
-                    <br></br>
                 </div>
             </Box>
-            <br></br>
         </div>
     )
 }   

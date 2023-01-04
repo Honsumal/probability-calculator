@@ -1,7 +1,7 @@
 import React from "react";
-import PortfolioContainer from "./components/PortfolioContainer";
+import Calculator from "./components/Calculator"
 
 
-const App = () => <PortfolioContainer />;
+const App = () => <Calculator />;
 
 export default App;
