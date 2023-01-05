@@ -1,12 +1,8 @@
 import React, {useState} from 'react'
-import {
-    Box,
-    TextField,
-    Button
-} from '@mui/material';
 import NavTabs from './NavTabs';
 import Confidence from './fragments/Confidence';
 import Rolls from './fragments/Rolls'
+
 
 export default function Calculator() {
     const [currentCalculator, setCurrentCalculator] = useState('Confidence');
@@ -23,16 +19,21 @@ export default function Calculator() {
     const handleCalculatorChange = (calc) => setCurrentCalculator(calc)
 
     return (
-        <div className='container'>
+        <div>
             <NavTabs currentCalculator={currentCalculator} handleCalculatorChange={handleCalculatorChange} />
             <br></br>
-            {renderCalculator}
-            <br></br>
-            <div className='container2'>
-                <Box>
-                    Previous Calculations:
-                </Box>                
+            <div className='container'>
+                
+                {renderCalculator()}
+                <br></br>
+                
             </div>
+            
+            {/* <div className='container'>
+                <PrevCalcs currentCalculator={currentCalculator} />   
+                <br></br>
+            </div> */}
+
             <br></br>
         </div>
     )
