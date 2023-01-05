@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/probability-calculator/static/css/main.2f2e44aa.css",
+    "main.js": "/probability-calculator/static/js/main.0fdfa029.js",
+    "index.html": "/probability-calculator/index.html",
+    "main.2f2e44aa.css.map": "/probability-calculator/static/css/main.2f2e44aa.css.map",
+    "main.0fdfa029.js.map": "/probability-calculator/static/js/main.0fdfa029.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.2f2e44aa.css",
+    "static/js/main.0fdfa029.js"
+  ]
+}
